@@ -281,13 +281,13 @@ def plot_response_curves(
           label="optimal_spend",
           color=sns.color_palette()[i])
     ax.set_ylabel(kpi_label)
-    ax.set_xlabel("Normalized Spend" if not media_scaler else "Spend")
+    ax.set_xlabel("Spend" if media_scaler else "Normalized Spend")
     ax.legend(fontsize=legend_fontsize)
 
   fig.suptitle("Response curves", fontsize=20)
-  last_ax.set_ylabel(kpi_label if not apply_log_scale else f"log({kpi_label})")
-  last_ax.set_xlabel("Normalized spend per channel"
-                     if not media_scaler else "Spend per channel")
+  last_ax.set_ylabel(f"log({kpi_label})" if apply_log_scale else kpi_label)
+  last_ax.set_xlabel(
+      "Spend per channel" if media_scaler else "Normalized spend per channel")
   plt.close()
   return fig
 
@@ -498,7 +498,7 @@ def plot_media_channel_posteriors(
         media_channel_posteriors[:, index], quantiles=quantiles, ax=ax)
     ax.set_xlabel(f"media channel {channel_names[index]}")
 
-  for index, ax in enumerate(axes.flatten()[n_media_channels:]):
+  for ax in axes.flatten()[n_media_channels:]:
     fig.delaxes(ax)
   fig.tight_layout()
   plt.close()

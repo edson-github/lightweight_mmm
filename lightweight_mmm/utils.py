@@ -252,7 +252,7 @@ def distance_pior_posterior(p: jnp.ndarray, q: jnp.ndarray, method: str = "KS",
   if method == "KS":
     # https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html
     return stats.ks_2samp(p, q).statistic
-  elif method in ["Hellinger", "JS", "min"]:
+  elif method in {"Hellinger", "JS", "min"}:
     if discrete:
       x = jnp.unique(jnp.concatenate((p, q)))
       p_pdf = _pmf(p, x)

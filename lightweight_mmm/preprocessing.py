@@ -106,13 +106,12 @@ class CustomScaler(base.TransformerMixin):
     if hasattr(self, "divide_operation"):
       self.divide_by = jnp.apply_along_axis(
           func1d=self.divide_operation, axis=0, arr=data)
-    elif isinstance(self.divide_by, int) or isinstance(self.divide_by, float):
+    elif isinstance(self.divide_by, (int, float)):
       self.divide_by = self.divide_by * jnp.ones(data.shape[1:])
     if hasattr(self, "multiply_operation"):
       self.multiply_by = jnp.apply_along_axis(
           func1d=self.multiply_operation, axis=0, arr=data)
-    elif isinstance(self.multiply_by, int) or isinstance(
-        self.multiply_by, float):
+    elif isinstance(self.multiply_by, (int, float)):
       self.multiply_by = self.multiply_by * jnp.ones(data.shape[1:])
 
   def transform(self, data: jnp.ndarray) -> jnp.ndarray:
