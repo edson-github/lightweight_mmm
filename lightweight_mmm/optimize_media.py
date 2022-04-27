@@ -219,13 +219,13 @@ def find_optimal_budgets(
       upper_pct=bounds_upper_pct,
       media_scaler=media_scaler)
 
-  if sum([lower_bound for lower_bound, _ in bounds]) > budget:
+  if sum(lower_bound for lower_bound, _ in bounds) > budget:
     logging.warning(
         "Budget given is smaller than the lower bounds of the constraints for "
         "optimization. This will lead to faulty optimization. Please either "
         "increase the budget or change the lower bound by increasing the "
         "percentage decrease with the `bounds_lower_pct` parameter.")
-  if sum([upper_bound for _, upper_bound in bounds]) < budget:
+  if sum(upper_bound for _, upper_bound in bounds) < budget:
     logging.warning(
         "Budget given is larger than the upper bounds of the constraints for "
         "optimization. This will lead to faulty optimization. Please either "
